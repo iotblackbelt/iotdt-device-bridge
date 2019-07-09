@@ -15,8 +15,13 @@ Take the following steps to deploy an Azure Function into your subscription and 
 
 1. Create an Azure Digital Twin instance and an Azure application registration as mentoined above.
 
-2. Click the `Deploy to Azure` button above. This opens up a custom ARM template in the Azure Portal to deploy the Azure Function. Privide the follwoing details when deploying the template:
-- 
+2. Click the `Deploy to Azure` button above. This opens up a custom ARM template in the Azure Portal to deploy the Azure Function. Provide the details as saved in the Azure Application Registration steps, when deploying the template:
+- Client Id: <Your application Id>
+- Client Secret: <Your create client secret>
+- Authority Host Url: https://login.microsoftonline.com/<your tenant name>.onmicrosoft.com/oauth2/token
+- Digital Twin API Url: https://<your digital twin name>.<location>.azuresmartspaces.net/
+
+![ARM Deployment](assets/deployment.PNG "ARM Deployment")
 
 3. After the deployment is done, install the required NPM packages in the function. To do this,
 go to the Function App that was deployed to your subscription in the `Functions > IoTDTIntegration > Console` tab.
