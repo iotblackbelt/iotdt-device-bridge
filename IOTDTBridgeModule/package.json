@@ -1,0 +1,10 @@
+{
+    "name": "iotdtbridgemodule",
+    "version": "0.0.1",
+    "dependencies": {
+        "azure-iot-device": "^1.7.0",
+        "azure-iot-device-mqtt": "^1.7.0",
+        "request": "^2.88.0",
+        "request-promise-native": "^1.0.5"
+    }
+}
