@@ -1,0 +1,98 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "clientId": {
+            "type": "String"
+        },
+        "clientSecret": {
+            "type": "String"
+        },
+        "authorityHostUrl": {
+            "type": "String"
+        },
+        "digitalTwinAPIUrl": {
+            "type": "String"
+        }
+    },
+    "variables": {
+        "planName": "[concat('iotdt-pln', uniqueString(resourceGroup().id))]",
+        "storageName": "[concat('iotdtsa', uniqueString(resourceGroup().id))]",
+        "functionAppName": "[concat('iotdt-fn', uniqueString(resourceGroup().id))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[variables('storageName')]",
+            "apiVersion": "2018-07-01",
+            "location": "[resourceGroup().location]"
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2015-04-01",
+            "name": "[variables('planName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+              "name": "[variables('planName')]",
+              "computeMode": "Dynamic",
+              "sku": "Dynamic"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp",
+            "name": "[variables('functionAppName')]",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "iotdtentral": "device-bridge",
+                "iotdtentralDeviceBridge": "function-app"
+            },
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "enabled": true,
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]",
+                "siteConfig": {
+                    "appSettings": [
+                        { "name": "AzureWebJobsDashboard", "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2015-05-01-preview').key1)]" },
+                        { "name": "AzureWebJobsStorage", "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2015-05-01-preview').key1)]" },
+                        { "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING", "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2015-05-01-preview').key1)]" },
+                        { "name": "WEBSITE_CONTENTSHARE", "value": "[toLower(variables('functionAppName'))]" },
+                        { "name": "FUNCTIONS_EXTENSION_VERSION", "value": "~2" },
+                        { "name": "WEBSITE_NODE_DEFAULT_VERSION", "value": "8.4.0" },
+                        { "name": "WEBSITE_HTTPSCALEV2_ENABLED", "value": 0 },
+                        { "name": "ClIENT_ID", "value": "[parameters('clientId')]" },
+                        { "name": "CLIENT_SECRET", "value": "[parameters('clientSecret')]" },
+                        { "name": "AUTHORITY_HOST_URL", "value": "[parameters('authorityHostUrl')]" },
+                        { "name": "IOTDT_API_URL", "value": "[parameters('digitalTwinAPIUrl')]" }
+                    ]
+                }
+            },
+            "resources": [
+                {
+                    "name": "MSDeploy",
+                    "type": "Extensions",
+                    "location": "[resourceGroup().location]",
+                    "apiVersion": "2015-08-01",
+                    "dependsOn": [
+                        "[concat('Microsoft.Web/sites/', variables('functionAppName'))]"
+                    ],
+                    "properties": {
+                        "packageUri": "https://raw.githubusercontent.com/gbbiotwesouth/iotdt-device-bridge/master/iotdt-bridge-az-function.zip"
+                    }
+                }
+            ],
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
+                "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]"
+            ]
+        }
+    ]
+}
