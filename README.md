@@ -16,10 +16,10 @@ Take the following steps to deploy an Azure Function into your subscription and 
 1. Create an Azure Digital Twin instance and an Azure application registration as mentoined above.
 
 2. Click the `Deploy to Azure` button above. This opens up a custom ARM template in the Azure Portal to deploy the Azure Function. Provide the details as saved in the Azure Application Registration steps, when deploying the template:
-- Client Id: <Your application Id>
-- Client Secret: <Your create client secret>
-- Authority Host Url: https://login.microsoftonline.com/<your tenant name>.onmicrosoft.com/oauth2/token
-- Digital Twin API Url: https://<your digital twin name>.<location>.azuresmartspaces.net/
+- Client Id: &lt;Your application Id>
+- Client Secret: &lt;Your create client secret>
+- Authority Host Url: https://login.microsoftonline.com/&lt;your tenant name>.onmicrosoft.com/oauth2/token
+- Digital Twin API Url: https://&lt;your digital twin name>.&lt;location>.azuresmartspaces.net/
 
 ![ARM Deployment](assets/deployment.png "ARM Deployment")
 
