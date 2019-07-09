@@ -12,7 +12,7 @@ To use the device bridge solution, you will need the following:
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgbbiotwesouth%2Fiotdt-device-bridge%2Fmaster%2Fazuredeploy.json)
 
-> The Azure Digital Twin Device Bridge can also be deployed as module on Azure IoT Edge. A step by step manual can be found on the [IoT Edge Module page](IOTEDGEMODULE.md)
+> The Azure Digital Twin Device Bridge can also be deployed as module on Azure IoT Edge. A step by step tutorial can be found on the [IoT Edge Module page](IOTEDGEMODULE.md)
 
 ## Instructions (Azure Function)
 Take the following steps to deploy an Azure Function into your subscription and set up the device bridge.
