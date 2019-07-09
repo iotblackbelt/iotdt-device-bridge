@@ -14,7 +14,7 @@ To build the `Azure Digital Twin Device Bridge Module` clone this repository to 
 Execute the command `docker build . -t iotdttransformationmodule` in the IOTDTTransformationModule directory of the repository. This will create a container that can then be pushed to your container registry. You can push the container by first tagging it with your container registry name and a version tag `docker tag iotdttransformationmodule <your container registry>/iotdttransformationmodule:<version>`, and then push it using `docker push <your container registry>/iotdttransformationmodule:<version>`. 
 
 ## Example: Deploy the Device Bridge and Transformation Module
-This example describes the steps to deploy the modules above to an Azure IoT Edge. The steps to create this example are Simular to deploying the Azure Digtal Twin Device Bridge as an Azure Function.
+This example describes the steps to deploy the modules above to an Azure IoT Edge. The steps to create this example are similar to deploying the Azure Digtal Twin Device Bridge as an Azure Function.
 
 To use the device bridge module solution, you will need the following:
 - an Azure account. You can create a free Azure account from [here](https://aka.ms/aft-iot)
