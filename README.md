@@ -13,9 +13,10 @@ To use the device bridge solution, you will need the following:
 ## Instructions
 Take the following steps to deploy an Azure Function into your subscription and set up the device bridge.
 
-1. Create a
+1. Create an Azure Digital Twin instance and an Azure application registration as mentoined above.
 
-2. Click the `Deploy to Azure` button above. This opens up a custom ARM template in the Azure Portal to deploy the Azure Function.
+2. Click the `Deploy to Azure` button above. This opens up a custom ARM template in the Azure Portal to deploy the Azure Function. Privide the follwoing details when deploying the template:
+- 
 
 3. After the deployment is done, install the required NPM packages in the function. To do this,
 go to the Function App that was deployed to your subscription in the `Functions > IoTDTIntegration > Console` tab.
