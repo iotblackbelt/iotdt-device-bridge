@@ -21,7 +21,7 @@ Take the following steps to deploy an Azure Function into your subscription and 
 - Authority Host Url: https://login.microsoftonline.com/<your tenant name>.onmicrosoft.com/oauth2/token
 - Digital Twin API Url: https://<your digital twin name>.<location>.azuresmartspaces.net/
 
-![ARM Deployment](assets/deployment.PNG "ARM Deployment")
+![ARM Deployment](assets/deployment.png "ARM Deployment")
 
 3. After the deployment is done, install the required NPM packages in the function. To do this,
 go to the Function App that was deployed to your subscription in the `Functions > IoTDTIntegration > Console` tab.
