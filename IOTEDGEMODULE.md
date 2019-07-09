@@ -37,7 +37,7 @@ Follow these steps to create the digital twin:
 
     ![Add device](assets/add_device.PNG "Add device")
 
-3. Add 4 sensors to the created device. USs the following `Hardware ID`'s, representing the 4 values that will be send from the `Simulated Temperature Sensor` below, and use the correct `Data Type` and `Data Unit Type`.
+3. Add 4 sensors to the created device. Use the following `Hardware ID`'s, representing the 4 values that will be send from the `Simulated Temperature Sensor` below, and use the correct `Data Type` and `Data Unit Type`.
     ```
     ambient_humidity        Humidity (ID: 17)       % (ID: 40)
     ambient_temperature     Temperature (ID: 18)    °C (ID: 38)
