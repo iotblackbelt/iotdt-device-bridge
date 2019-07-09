@@ -48,15 +48,15 @@ Get-AzureRmADServicePrincipal -DisplayName '<your application registration name>
     ![Object Id](assets/Appreg_4.png "Object Id")
 
 ## Assign an Azure Digital Twin role to the application (gateway device)
-To ensure the Azure Digital Twin Device Bridge can access you digital twin instance and retrieve the device conection string, you need to assign the Azure Application the role of gateway device. The easiest way to do this is using the [Azure Digital Twin Graph Viewer](https://github.com/Azure/azure-digital-twins-graph-viewer). Deploy the viewer as a web app or run it locally as a docker container. 
+To ensure the Azure Digital Twin Device Bridge can access you digital twin instance and retrieve the device connection string, you need to assign the Azure Application the role of gateway device. The easiest way to do this, is using the [Azure Digital Twin Graph Viewer](https://github.com/Azure/azure-digital-twins-graph-viewer). Deploy the viewer as a web app or run it locally as a docker container. 
 
 Follow these steps to assign the role:
 
-1. Once you've got the `Azure Digital Twin Graph Viewer` login to the viewer.
+1. Once you've got the `Azure Digital Twin Graph Viewer` running, sign in to the viewer.
 
     ![Login to viewer](assets/Appreg_8.png "Login to viewer")
 
-2. Once logged in click on `Execute API Call`. A slide-in window will appear. Provide the following details:
+2. Once signed in click on `Execute API Call`. A slide-in window will appear. Provide the following details:
 - API: roleassignments
 - Method: POST
 - JSON Input:
