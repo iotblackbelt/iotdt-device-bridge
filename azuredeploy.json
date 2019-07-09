@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "clientId": {
-            "type": "String"
+            "type": "string"
         },
         "clientSecret": {
-            "type": "String"
+            "type": "string"
         },
         "authorityHostUrl": {
-            "type": "String"
+            "type": "string"
         },
         "digitalTwinAPIUrl": {
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {
