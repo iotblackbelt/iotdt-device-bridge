@@ -1,19 +1,21 @@
 # Azure Digital Twin Device Bridge
-This repository contains everything you need create a device bridge to connect other IoT clouds such as Sigfox, Particle, and The Things Network (TTN) to Azure Digital Twin. The device bridge forwards the messages your devices send to other clouds to your Azure Digital Twin. This solution will provision several Azure resources into your Azure subscription that work together to transform and forward device messages through a webhook integration in Azure Functions.
+This repository contains an example of what you need create a device bridge to connect other IoT clouds such as Sigfox, Particle, and The Things Network (TTN) to Azure Digital Twin. The device bridge forwards the messages your devices send to other clouds to your Azure Digital Twin. This solution will provision several Azure resources into your Azure subscription that work together to transform and forward device messages through a webhook integration in Azure Functions.
 
 > This repository is based on the IoT Central device bridge, which can be found [here](https://github.com/Azure/iotc-device-bridge).
 
 To use the device bridge solution, you will need the following:
 - an Azure account. You can create a free Azure account from [here](https://aka.ms/aft-iot)
 - an Azure Digital Twin application to connect the devices. Create an Azure Digital Twin by following [this tutorial](https://docs.microsoft.com/en-us/azure/digital-twins/tutorial-facilities-setup). You can use the open source [Azure Digital Twin Graph Viewer](https://github.com/Azure/azure-digital-twins-graph-viewer) to interact with the digital twin through a web front-end.
-- an Azure Application Registration and Azure Digital Twin role assignment, which gives your Azure Digital Twin Device Bridge access rights to your Azure Digital Twin service. A step by step manual can be found in the [Application Registration page](APPLICATIONREGISTRATION.md).
+- an Azure Application Registration and Azure Digital Twin role assignment, which gives your Azure Digital Twin Device Bridge access rights to your Azure Digital Twin service. A step by step manual can be found on the [Application Registration page](APPLICATIONREGISTRATION.md).
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgbbiotwesouth%2Fiotdt-device-bridge%2Fmaster%2Fazuredeploy.json)
 
-## Instructions
+> The Azure Digital Twin Device Bridge can also be deployed as module on Azure IoT Edge. A step by step manual can be found on the [IoT Edge Module page](IOTEDGEMODULE.md)
+
+## Instructions (Azure Function)
 Take the following steps to deploy an Azure Function into your subscription and set up the device bridge.
 
-1. Create an Azure Digital Twin instance and an Azure application registration as described above.
+1. Create an Azure Digital Twin instance and Azure application registration as described above.
 
 2. Click the `Deploy to Azure` button above. This opens up a custom ARM template in the Azure Portal to deploy the Azure Function. Provide the details as saved in the Azure Application Registration steps, when deploying the template:
 - Client Id: &lt;Your application Id&gt;
