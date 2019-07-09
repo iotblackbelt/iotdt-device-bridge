@@ -89,7 +89,7 @@ Once you've built the modules as describe above and provisioned all necessary pr
     ```json
     {
         "routes": {
-            "TarnformatorToBridge": "FROM /messages/modules/iotdttransformationmodule/outputs/* INTO BrokeredEndpoint(\"/modules/iotdtbridgemodule/inputs/iotc\")",
+            "TransformatorToBridge": "FROM /messages/modules/iotdttransformationmodule/outputs/* INTO BrokeredEndpoint(\"/modules/iotdtbridgemodule/inputs/iotc\")",
             "SimulatedToTransformator": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO BrokeredEndpoint(\"/modules/iotdttransformationmodule/inputs/<device hardware Id>\")",
             "upstream": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO $upstream"
         }
@@ -98,7 +98,7 @@ Once you've built the modules as describe above and provisioned all necessary pr
 
 7. Click `Next` and `Submit` at the bottom of the page. The IoT Edge is now deployed and will start sending messages to your digial twin.
 
-> The &lt;device hardware Id&gt; in the route above is the one that you created in your Azure Digital twin.
+> The &lt;device hardware Id&gt; in the route above is the one that you created in your Azure Digital twin. The `$upstream` is only used to check whther the `Simulated Temperature Sensor` is still sending messages.
 
 > The `Simulated Temperature Sensor` sends out 500 messages and then stops sending. If you want to restart sending messages, restart the module on the IoT Edge by executing the command `iotedge restart SimulatedTemperatureSensor` at a prompt.
 
