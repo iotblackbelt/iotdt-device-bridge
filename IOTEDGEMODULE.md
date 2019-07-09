@@ -23,7 +23,7 @@ To use the device bridge module solution, you will need the following:
 - an Azure IoT Edge device deployment.
 
 ### Create a Azure Digital Twin using the Azure Digital Twin Graph Viewer
-The 'Azure Digital Twin Device Bridge Module' in this example will send the messages in a specific format to your Azure Digital Twin instance. To ensure your Digital Twin is setup to receive those messages, use 'Azure Digital Twin Graph Viewer' to create the correct structure. Deploy the viewer as a web app or run it locally as a docker container. Create the `device1` device as used below in the module:
+The 'Azure Digital Twin Device Bridge Module' in this example will send the messages in a specific format to your Azure Digital Twin instance. To ensure your Digital Twin is setup to receive those messages, use 'Azure Digital Twin Graph Viewer' to create the correct structure. Deploy the viewer as a web app or run it locally as a docker container. Create the `device1` device as used below in the module.
 
 ![Viewer](assets/digitaltwin.PNG "Viewer")
 
