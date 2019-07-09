@@ -24,7 +24,7 @@ Take the following steps to deploy an Azure Function into your subscription and 
 ![ARM Deployment](assets/deployment.png "ARM Deployment")
 
 3. After the deployment is done, install the required NPM packages in the function. To do this,
-go to the Function App that was deployed to your subscription in the `Functions > IoTDTIntegration > Console` tab.
+go to the Function App that was deployed to your subscription and open the console using the `Functions > IoTDTIntegration > Console` tab.
 In the console, run the command `npm install` (this command takes ~20 minutes to complete, so feel free to do something else in that time).
 
 ![Install packages](assets/npmInstall.PNG "Install packages")
@@ -249,7 +249,7 @@ Function. You can check the integrity of the code being deployed by verifying th
 of the `iotdt-bridge-az-function.zip` file in the root of this repository matches the following:
 
 ```
-<SHA256 Key>
+DB5BC8F3F0CEA64CE60BD400BF76F6AAF3159542A2E10292B4975228AB670749
 ```
 
 # Contributing
