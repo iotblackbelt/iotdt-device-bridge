@@ -132,7 +132,7 @@ To connect a Particle device through the device bridge to Azure Digital Twin, go
     "deviceId": "{{{PARTICLE_DEVICE_ID}}}"
   },
   "measurements": {
-    "{{{PARTICLE_EVENT_NAME}}}": {{{PARTICLE_EVENT_VALUE}}}
+    "{{{PARTICLE_EVENT_NAME}}}": "{{{PARTICLE_EVENT_VALUE}}}"
   }
 }
 
