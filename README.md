@@ -3,7 +3,7 @@
 # Azure Digital Twin Device Bridge
 This repository contains an example of what you need create a device bridge to connect other IoT clouds such as Sigfox, Particle, and The Things Network (TTN) to Azure Digital Twin. The device bridge forwards the messages your devices send to other clouds to your Azure Digital Twin. This solution will provision several Azure resources into your Azure subscription that work together to transform and forward device messages through a webhook integration in Azure Functions.
 
-> This repository is based on the IoT Central device bridge, which can be found [here](https://github.com/Azure/iotc-device-bridge).
+> This repository is based on the IoT Central device bridge, which can be found [here](https://github.com/Azure/iotc-device-bridge). Thanks to the team who created the IoT Central Device Bridge, who did most of the heavy lifting!
 
 To use the device bridge solution, you will need the following:
 - an Azure account. You can create a free Azure account from [here](https://aka.ms/aft-iot)
