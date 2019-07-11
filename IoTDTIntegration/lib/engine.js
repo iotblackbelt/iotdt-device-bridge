@@ -9,8 +9,11 @@ const DeviceTransport = require('azure-iot-device-http');
 const util = require('util');
 
 const StatusError = require('../error').StatusError;
+const resource = '0b07f429-9f4b-4714-9392-cc5e8e80c8b0';
 
 const deviceCache = {};
+
+var dtToken;
 
 /**
  * Forwards external telemetry messages for IoT Digital Twin devices.
@@ -19,6 +22,7 @@ const deviceCache = {};
  * @param {{ [sensor: string]: number }} measurements 
  */
 module.exports = async function (context, device, measurements, timestamp) {
+    
     if (device) {
         if (!device.deviceId || !/^[a-z0-9\-]+$/.test(device.deviceId)) {
             throw new StatusError('Invalid format: deviceId must be alphanumeric, lowercase, and may contain hyphens.', 400);
@@ -90,25 +94,62 @@ function validateMeasurements(measurements) {
 
 async function getDeviceConnectionString(context, device) {
     const deviceId = device.deviceId;
-    var connStr = '';
+    var response;
 
     if (deviceCache[deviceId] && deviceCache[deviceId].connectionString) {
         return deviceCache[deviceId].connectionString;
     }
 
     var options = { method: 'GET',
-        url: context.parameters.digitalTwinUrl + '/management/api/v1.0/devices?hardwareIds=' + deviceId + '&includes=ConnectionString',
+        json: true,
+        url: context.digitalTwinAPIUrl + '/management/api/v1.0/devices?hardwareIds=' + deviceId + '&includes=ConnectionString',
         headers:
-            { 'Authorization': 'Bearer ' + await context.getSecret(context) }
+            { 'Authorization': 'Bearer ' + await getDigitalTwinToken(context) }
     };
-
+    
     try {
         context.log('[HTTP] Requesting device connectionstring');
-        const response = await request(options);
-        connStr = response.connectionString;
+        response = await request(options);
+        context.log(response[0].connectionString);
     } catch (e) {
-        throw new Error('Unable to get device connectionstring');
+        throw new Error(e);
     }
-    deviceCache[deviceId].connectionString = connStr;
-    return connStr;
+    
+    return response[0].connectionString;
+}
+
+/**
+ * Fetches a digital twin token.
+ */
+async function getDigitalTwinToken(context, forceTokenRefresh = true) {
+   
+    if (!dtToken || forceTokenRefresh) {
+        
+        const options = {
+            url: context.authorityHostUrl,
+            method: 'POST',
+            json: true,
+            headers: {
+                'content-type': 'application/json'
+            },
+            form: {
+                'grant_type': 'client_credentials',
+                'client_id': context.clientId,
+                'client_secret': context.clientSecret,
+                'resource': resource
+            }
+        }
+
+        try {
+            context.log('[HTTP] Requesting new Digital Twin token');
+            context.log(options);
+            var response = await request(options);
+            dtToken = response.access_token;
+
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    return dtToken;
 }
