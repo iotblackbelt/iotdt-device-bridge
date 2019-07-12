@@ -12,11 +12,14 @@ const StatusError = require('../error').StatusError;
 const resource = '0b07f429-9f4b-4714-9392-cc5e8e80c8b0';
 
 const deviceCache = {};
-var dtToken;
+var dtToken = {
+    token: '',
+    created: ''
+};
 
 /**
  * Forwards external telemetry messages for IoT Digital Twin devices.
- * @param {{ parameters: Object, log: Function, getSecret: (context: Object) => string }} context 
+ * @param {{ parameters: Object, log: Function }} context 
  * @param {{ deviceId: string }} device 
  * @param {{ [sensor: string]: number }} measurements 
  */
@@ -130,9 +133,13 @@ async function getDeviceConnectionString(context, device) {
 /**
  * Fetches a digital twin token.
  */
-async function getDigitalTwinToken(context, forceTokenRefresh = true) {
+async function getDigitalTwinToken(context) {
    
-    if (!dtToken || forceTokenRefresh) {
+
+    if (dtToken.token && dtToken.created && ((Date.now() - dtToken.created) < 60*60*1000)){
+        context.log('Getting Digital Twin token from cache');
+        return dtToken.token;
+    } else {
         
         const options = {
             url: context.authorityHostUrl,
@@ -153,12 +160,13 @@ async function getDigitalTwinToken(context, forceTokenRefresh = true) {
             context.log('[HTTP] Requesting new Digital Twin token');
 
             var response = await request(options);
-            dtToken = response.access_token;
+            dtToken.token = response.access_token;
+            dtToken.created = Date.now();
 
         } catch (e) {
             throw new Error(e);
         }
     }
 
-    return dtToken;
+    return dtToken.token;
 }
