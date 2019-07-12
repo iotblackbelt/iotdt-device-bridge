@@ -62,7 +62,7 @@ Follow these steps to assign the role:
 - JSON Input:
 ```json
 {
-    "roleId": "d4c69766-e9bd-4e61-bfc1-d8b6e686c7a8",
+    "roleId": "3cdfde07-bc16-40d9-bed3-66d49a8f52ae",
     "objectId": "<your application object Id (retrieved in the previous step)>",
     "objectIdType": "UserId",
     "tenantId": "<your Azure tenant Id>",

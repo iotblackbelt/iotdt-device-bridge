@@ -41,7 +41,7 @@ module.exports = async function (context, device, measurements, timestamp) {
         throw new StatusError('Invalid format: if present, timestamp must be in ISO format (e.g., YYYY-MM-DDTHH:mm:ss.sssZ)', 400);
     }
 
-    const client = Device.Client.fromConnectionString(await getDeviceConnectionString(context, device), DeviceTransport.Http);
+    const client = Device.Client.fromConnectionString(await getDeviceConnectionString(context, device, measurements), DeviceTransport.Http);
 
     try {
         await util.promisify(client.open.bind(client))();
@@ -63,7 +63,7 @@ module.exports = async function (context, device, measurements, timestamp) {
             if (timestamp) {
                 message.properties.add('CreationTimeUtc', timestamp);
             }
-
+            
             // Send the message
             await util.promisify(client.sendEvent.bind(client))(message);
         }
@@ -96,7 +96,7 @@ function validateMeasurements(measurements) {
     return true;
 }
 
-async function getDeviceConnectionString(context, device) {
+async function getDeviceConnectionString(context, device, measurements) {
     const deviceId = device.deviceId;
     let connectionString = '';
 
@@ -110,18 +110,26 @@ async function getDeviceConnectionString(context, device) {
         return deviceCache[deviceId].connectionString;
     }
 
-    var options = { 
-        method: 'GET',
-        json: true,
-        url: context.digitalTwinAPIUrl + '/management/api/v1.0/devices?hardwareIds=' + deviceId + '&includes=ConnectionString',
-        headers:
-            { 'Authorization': 'Bearer ' + await getDigitalTwinToken(context) }
-    };
-    
+       
     try {
         context.log('[HTTP] Requesting device connectionstring');
-        let response = await request(options);
-        connectionString = response[0].connectionString;
+
+        let getDevice = await request({ 
+            method: 'GET',
+            json: true,
+            url: context.digitalTwinAPIUrl + '/management/api/v1.0/devices?hardwareIds=' + deviceId + '&includes=ConnectionString',
+            headers:
+                { 'Authorization': 'Bearer ' + await getDigitalTwinToken(context) }
+        });
+
+        if (!getDevice[0]) {
+            context.log("[HTTP] Device does not exist. Creating new device.");
+
+            await createDevice(context, deviceId, measurements);
+
+        } else {
+            connectionString = getDevice[0].connectionString;
+        }
     } catch (e) {
         throw new Error(e);
     }
@@ -130,12 +138,49 @@ async function getDeviceConnectionString(context, device) {
     return connectionString;
 }
 
-/**
- * Fetches a digital twin token.
- */
-async function getDigitalTwinToken(context) {
-   
+async function createDevice(context, deviceId, measurements){
+    var sensors = [];
+    for (measurement in measurements){
+        sensors.push({
+            "hardwareId": measurement,
+            "name": measurement
+        });
+    }
+ 
+    let createDevice = await request({ 
+        method: 'POST',
+        json: true,
+        url: context.digitalTwinAPIUrl + '/management/api/v1.0/devices/',
+        headers:
+            { 'Authorization': 'Bearer ' + await getDigitalTwinToken(context) },
+        body:
+            {
+                "hardwareId": deviceId,
+                "name": deviceId,
+                "spaceId": await getRootSpace(context),
+                "createIoTHubDevice": true,
+                    "sensors":sensors
+            }
+    });
 
+    context.log("[HTTP] Created new device with id: "+createDevice);
+    return createDevice;
+}
+
+async function getRootSpace(context){
+    let rootSpace = await request({ 
+        method: 'GET',
+        json: true,
+        url: context.digitalTwinAPIUrl + '/management/api/v1.0/spaces?maxLevel=1',
+        headers:
+            { 'Authorization': 'Bearer ' + await getDigitalTwinToken(context) }
+    });
+
+    context.log("[HTTP] Root Space id is: "+rootSpace[0].id);
+    return rootSpace[0].id;
+}
+
+async function getDigitalTwinToken(context) {
     if (dtToken.token && dtToken.created && ((Date.now() - dtToken.created) < 60*60*1000)){
         context.log('Getting Digital Twin token from cache');
         return dtToken.token;
