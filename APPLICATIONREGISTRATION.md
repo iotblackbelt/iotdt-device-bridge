@@ -33,7 +33,7 @@ To allow the Azure Digital Twin Device Bridge to connect to Azure Digital Twin a
 The steps above have created an Azure Application Registration.
 
 ## Retrieve the application object Id
-The Azure Active Directory object Id of the aplication will be used to create a role assignment in your Azure Digital Twin instance, so the Azure Digital Twin Device Bridge can connect to your instance to retrieve device connection strings.
+The Azure Active Directory object Id of the aplication will be used to create a role assignment in your Azure Digital Twin instance, so the Azure Digital Twin Device Bridge can connect to your instance to retrieve device connection strings and create devices if needed.
 
 Follow these steps to retrieve the `object Id`
 
@@ -52,9 +52,9 @@ To ensure the Azure Digital Twin Device Bridge can access you digital twin insta
 
 Follow these steps to assign the role:
 
-1. Once you've got the `Azure Digital Twin Graph Viewer` running, sign in to the viewer.
+1. Once you've got the `Azure Digital Twin Graph Viewer` running, sign-in to the viewer.
 
-    ![Login to viewer](assets/Appreg_8.png "Login to viewer")
+    ![Sign-in to viewer](assets/Appreg_8.png "Sign-in to viewer")
 
 2. Once signed in click on `Execute API Call`. A slide-in window will appear. Provide the following details:
 - API: roleassignments
