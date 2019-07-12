@@ -12,12 +12,11 @@ const StatusError = require('../error').StatusError;
 const resource = '0b07f429-9f4b-4714-9392-cc5e8e80c8b0';
 
 const deviceCache = {};
-
 var dtToken;
 
 /**
  * Forwards external telemetry messages for IoT Digital Twin devices.
- * @param {{ parameters: Object, log: Function } context 
+ * @param {{ parameters: Object, log: Function, getSecret: (context: Object) => string }} context 
  * @param {{ deviceId: string }} device 
  * @param {{ [sensor: string]: number }} measurements 
  */
@@ -44,6 +43,8 @@ module.exports = async function (context, device, measurements, timestamp) {
     try {
         await util.promisify(client.open.bind(client))();
         context.log('[HTTP] Sending telemetry for device', device.deviceId);
+
+ 
 
         // Iterate through measurements and send as sensors
         for(var measurement in measurements){
@@ -94,13 +95,20 @@ function validateMeasurements(measurements) {
 
 async function getDeviceConnectionString(context, device) {
     const deviceId = device.deviceId;
-    var response;
+    let connectionString = '';
+
+    deviceCache[deviceId] = {
+        ...deviceCache[deviceId]
+    }   
+
 
     if (deviceCache[deviceId] && deviceCache[deviceId].connectionString) {
+        context.log('Retrieved ConnectionString from cache.');
         return deviceCache[deviceId].connectionString;
     }
 
-    var options = { method: 'GET',
+    var options = { 
+        method: 'GET',
         json: true,
         url: context.digitalTwinAPIUrl + '/management/api/v1.0/devices?hardwareIds=' + deviceId + '&includes=ConnectionString',
         headers:
@@ -109,14 +117,14 @@ async function getDeviceConnectionString(context, device) {
     
     try {
         context.log('[HTTP] Requesting device connectionstring');
-        response = await request(options);
-        context.log(response[0].connectionString);
+        let response = await request(options);
+        connectionString = response[0].connectionString;
     } catch (e) {
         throw new Error(e);
     }
-    
-    deviceCache[deviceId].connectionString = response[0].connectionString;
-    return response[0].connectionString;
+
+    deviceCache[deviceId].connectionString = connectionString;
+    return connectionString;
 }
 
 /**
@@ -143,7 +151,7 @@ async function getDigitalTwinToken(context, forceTokenRefresh = true) {
 
         try {
             context.log('[HTTP] Requesting new Digital Twin token');
-            context.log(options);
+
             var response = await request(options);
             dtToken = response.access_token;
 
