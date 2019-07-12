@@ -15,7 +15,6 @@ const parameters = {
 
 module.exports = async function (context, req) {
     try {
-        console.log(parameters);
         await handleMessage({ ...parameters, log: context.log }, req.body.device, req.body.measurements, req.body.timestamp);
     } catch (e) {
         context.log('[ERROR]', e.message);
