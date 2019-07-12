@@ -70,8 +70,6 @@ Follow these steps to assign the role:
 }
 ```
 
-> The role of "Device Administrator" is assigned, as the device bridge will  created devices and sensors if they are not yet known in the Azure Digital Twin.
+3. Click on the `Execute` button and a `Device Administrator` role will be assigned to your Azure application. If the role assignment was successful a role assignment Id will be provided in the JSON Output field.
 
-3. Click on the `Execute` button and a `Gateway Device` role will be assigned to your Azure application. If the role assignment was successful a role assignment Id will be provided in the JSON Output field.
-
-> More information on roles that can be assigned can be found [here](https://docs.microsoft.com/en-us/azure/digital-twins/security-role-based-access-control#role-definitions).
+> The role of "Device Administrator" is assigned, as the device bridge will create devices and sensors if they are not yet known in the Azure Digital Twin. More information on roles that can be assigned can be found [here](https://docs.microsoft.com/en-us/azure/digital-twins/security-role-based-access-control#role-definitions).
