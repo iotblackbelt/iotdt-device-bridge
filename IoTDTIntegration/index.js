@@ -13,8 +13,6 @@ const parameters = {
     digitalTwinAPIUrl: process.env.IOTDT_API_URL
 };
 
-
-
 module.exports = async function (context, req) {
     try {
         console.log(parameters);

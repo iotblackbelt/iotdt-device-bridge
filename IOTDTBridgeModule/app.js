@@ -57,7 +57,7 @@ async function pipeMessage(client, inputName, msg) {
       var req = JSON.parse(msg.getBytes().toString('utf8'));
       // Pass the context and req object parts to the iotc bridge
       try {
-        await handleMessage({ ...parameters, log: context.log}, req.device, req.measurements, req.timestamp);
+        await handleMessage({ ...parameters, log: context.log }, req.device, req.measurements, req.timestamp);
       } catch (e) {
           context.log('[ERROR] ' + e.message);
       }
