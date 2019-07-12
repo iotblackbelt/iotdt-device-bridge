@@ -17,7 +17,7 @@ var dtToken;
 
 /**
  * Forwards external telemetry messages for IoT Digital Twin devices.
- * @param {{ parameters: Object, log: Function, getSecret: (context: Object) => string }} context 
+ * @param {{ parameters: Object, log: Function } context 
  * @param {{ deviceId: string }} device 
  * @param {{ [sensor: string]: number }} measurements 
  */
@@ -115,6 +115,7 @@ async function getDeviceConnectionString(context, device) {
         throw new Error(e);
     }
     
+    deviceCache[deviceId].connectionString = response[0].connectionString;
     return response[0].connectionString;
 }
 

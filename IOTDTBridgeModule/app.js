@@ -57,41 +57,10 @@ async function pipeMessage(client, inputName, msg) {
       var req = JSON.parse(msg.getBytes().toString('utf8'));
       // Pass the context and req object parts to the iotc bridge
       try {
-        await handleMessage({ ...parameters, log: context.log, getToken: getDigitalTwinToken }, req.device, req.measurements, req.timestamp);
+        await handleMessage({ ...parameters, log: context.log}, req.device, req.measurements, req.timestamp);
       } catch (e) {
           context.log('[ERROR] ' + e.message);
       }
     }
   }
-}
-
-/**
- * Fetches a digital twin token.
- */
-async function getDigitalTwinToken(context, forceTokenRefresh = true) {
-  if (!dtToken || forceTokenRefresh) {
-      const options = {
-          url: parameters.authorityHostUrl,
-          method: 'POST',
-          headers: {
-              'content-type': 'application/json'
-          },
-          form: {
-              'grant_type': 'client_credentials',
-              'client_id': parameters.clientId,
-              'client_secret': parameters.clientSecret,
-              'resource': resource
-          }
-      }
-
-      try {
-          context.log('[INFO] Requesting new Digital Twin token');
-          const response = await request(options);
-          dtToken = response.access_token;
-      } catch (e) {
-          throw new Error('Unable to get Digital Twin token');
-      }
-  }
-
-  return dtToken;
 }
