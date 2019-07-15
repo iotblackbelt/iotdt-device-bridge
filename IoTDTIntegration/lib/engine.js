@@ -80,6 +80,8 @@ module.exports = async function (context, device, measurements, timestamp) {
 };
 
 /**
+ * 
+ * @param {{ [sensor: string]: number }} measurements 
  * @returns true if measurements object is valid, i.e., a map of field names to numbers or strings.
  */
 function validateMeasurements(measurements) {
@@ -96,6 +98,14 @@ function validateMeasurements(measurements) {
     return true;
 }
 
+/**
+ * 
+ * @param {{ parameters: Object, log: Function }} context 
+ * @param {{ device: Object }} device 
+ * @param {{ [sensor: string]: number }} measurements 
+ * 
+ * @returns connetionString
+ */
 async function getDeviceConnectionString(context, device, measurements) {
     const deviceId = device.deviceId;
     let connectionString = '';
@@ -138,6 +148,14 @@ async function getDeviceConnectionString(context, device, measurements) {
     return connectionString;
 }
 
+/**
+ * 
+ * @param {{ parameters: Object, log: Function }} context 
+ * @param {{ deviceId: string }} device 
+ * @param {{ [sensor: string]: number }} measurements 
+ * 
+ * @returns createDevice
+ */
 async function createDevice(context, deviceId, measurements){
     var sensors = [];
     for (measurement in measurements){
@@ -167,6 +185,11 @@ async function createDevice(context, deviceId, measurements){
     return createDevice;
 }
 
+/**
+ * @param {{ parameters: Object, log: Function }} context 
+ * 
+ * @returns root space Id
+ */
 async function getRootSpace(context){
     let rootSpace = await request({ 
         method: 'GET',
@@ -180,6 +203,12 @@ async function getRootSpace(context){
     return rootSpace[0].id;
 }
 
+/**
+ * 
+ * @param {{ parameters: Object, log: Function }} context 
+ * 
+ * @returns token
+ */
 async function getDigitalTwinToken(context) {
     if (dtToken.token && dtToken.created && ((Date.now() - dtToken.created) < 60*60*1000)){
         context.log('Getting Digital Twin token from cache');

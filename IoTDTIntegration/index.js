@@ -3,7 +3,6 @@
  * Licensed under the MIT License.
  */
 
-const request = require('request-promise-native');
 const handleMessage = require('./lib/engine');
 
 const parameters = {

@@ -13,15 +13,22 @@ const parameters = {
   digitalTwinAPIUrl: process.env.IOTDT_API_URL
 };
 
-// Create a context object that is normally present in an Azure function
-// log is used with the iotdt bridge
+/**
+ *
+ * Create a context object that is normally present in an Azure function
+ * log is used with the iotdt bridge
+ */
 let context = {
   log(args) {
     console.log(args);
   }
 }
 
-// Get the module client
+/**
+ *  Creates a Module Client from environment
+ * 
+ *  @param {{ Transport: Transport }} Transport
+ */
 Client.fromEnvironment(Transport, function (err, client) {
   if (err) {
     throw err;
@@ -46,7 +53,12 @@ Client.fromEnvironment(Transport, function (err, client) {
   }
 });
 
-// This function just pipes the messages to the iotc bridge without any change.
+/**
+ * 
+ * @param {{ client: ModuleClient }} client 
+ * @param {{ inputName: string }} inputName 
+ * @param {{ msg: Object }} msg 
+ */
 async function pipeMessage(client, inputName, msg) {
   client.complete(msg, console.log('[INFO] Receiving message'));
 
