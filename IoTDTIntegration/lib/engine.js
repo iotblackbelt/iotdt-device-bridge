@@ -7,6 +7,7 @@ const request = require('request-promise-native');
 const Device = require('azure-iot-device');
 const DeviceTransport = require('azure-iot-device-http');
 const util = require('util');
+const uuidv4 = require('uuid/v4');
 
 const StatusError = require('../error').StatusError;
 const resource = '0b07f429-9f4b-4714-9392-cc5e8e80c8b0';
@@ -45,7 +46,7 @@ module.exports = async function (context, device, measurements, timestamp) {
 
     try {
         await util.promisify(client.open.bind(client))();
-        context.log('[HTTP] Sending telemetry for device', device.deviceId);
+        context.log('[HTTP] Sending telemetry for device: ' + device.deviceId);
 
  
 
@@ -53,7 +54,7 @@ module.exports = async function (context, device, measurements, timestamp) {
         for(var measurement in measurements){
             // Get the value
             var sensorValue = {
-                SensorValue: measurements[measurement]
+                SensorValue: (measurements[measurement]).toString()
             };
 
             // Create the message
@@ -63,7 +64,12 @@ module.exports = async function (context, device, measurements, timestamp) {
             if (timestamp) {
                 message.properties.add('CreationTimeUtc', timestamp);
             }
+            else {
+                message.properties.add('CreationTimeUtc', (Date.now()).toISOString());
+            }
+            message.properties.add('x-ms-client-request-id', uuidv4());
             
+            context.log('[HTTP] Sending telemetry for sensor: ' + measurement + ' with value: ' + measurements[measurement]);
             // Send the message
             await util.promisify(client.sendEvent.bind(client))(message);
         }
@@ -181,7 +187,7 @@ async function createDevice(context, deviceId, measurements){
             }
     });
 
-    context.log("[HTTP] Created new device with id: "+createDevice);
+    context.log("[HTTP] Created new device with id: " + createDevice);
     return createDevice;
 }
 
@@ -199,7 +205,8 @@ async function getRootSpace(context){
             { 'Authorization': 'Bearer ' + await getDigitalTwinToken(context) }
     });
 
-    context.log("[HTTP] Root Space id is: "+rootSpace[0].id);
+    context.log("[HTTP] Root space object: " + JSON.stringify(rootSpace));
+    context.log("[HTTP] Root Space id is: " + rootSpace[0].id);
     return rootSpace[0].id;
 }
 

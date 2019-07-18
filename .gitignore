@@ -77,3 +77,6 @@ typings/
 
 # module files
 module.json
+
+# config directory
+config/

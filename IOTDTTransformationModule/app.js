@@ -33,19 +33,19 @@ function pipeMessage(client, inputName, msg) {
   client.complete(msg, printResultFor('Receiving message'));
 
   var json = JSON.parse(msg.getBytes().toString('utf8'));
-   // Convert msg to IOTC bridge message structure
+   // Convert msg to IOTDT bridge message structure
   var req = {
     device: {
       deviceId: inputName
     },
     measurements: {
-      machine_temperature: json.machine.temperature,
-      machine_pressure: json.machine.pressure,
-      ambient_temperature: json.ambient.temperature,
-      ambient_humidity: json.ambient.humidity
     },
     timestamp: json.timeCreated
   }
+  req.measurements[inputName + '_machine_temperature'] = json.machine.temperature;
+  req.measurements[inputName + '_machine_pressure'] = json.machine.pressure;
+  req.measurements[inputName + '_ambient_temperature'] = json.ambient.temperature;
+  req.measurements[inputName + '_ambient_humidity'] = json.ambient.humidity;
 
   var message = JSON.stringify(req);
   console.log('[JSON] ' + message);

@@ -8,7 +8,7 @@ There are 2 directories in this repository related to the Device Bridge module:
 > The assumption is that you know how to install an IoT Edge device and deploy modules. If not please check [here](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux) for the basic steps of installing IoT Edge on Linux X64, and [here](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-deploy-modules-portal) on how to deploy modules.
 
 ## Building the Azure Digital Twin Device Bridge Module
-To build the `Azure Digital Twin Device Bridge Module` clone this repository to your local device, which has docker installed (using Linux containers). Then execute the command `docker build . -t iotdtbridgemodule` in the root directory of the repository. This will create a container that can then be pushed to your container registry. You can push the container by frst tagging it with your container registry name and a version tag `docker tag iotdtbridgemodule <your container registry>/iotdtbridgemodule:<version>`, and then push it using `docker push <your container registry>/iotdtbridgemodule:<version>`. 
+To build the `Azure Digital Twin Device Bridge Module` clone this repository to your local device, which has docker installed (using Linux containers). Then execute the command `docker build . -t iotdtbridgemodule` in the root directory of the repository. This will create a container that can then be pushed to your container registry. You can push the container by first tagging it with your container registry name and a version tag `docker tag iotdtbridgemodule <your container registry>/iotdtbridgemodule:<version>`, and then push it using `docker push <your container registry>/iotdtbridgemodule:<version>`. 
 
 ## Building the IOTDTTransformationModule module
 Execute the command `docker build . -t iotdttransformationmodule` in the IOTDTTransformationModule directory of the repository. This will create a container that can then be pushed to your container registry. You can push the container by first tagging it with your container registry name and a version tag `docker tag iotdttransformationmodule <your container registry>/iotdttransformationmodule:<version>`, and then push it using `docker push <your container registry>/iotdttransformationmodule:<version>`. 
@@ -98,7 +98,9 @@ Once you've built the modules as describe above and provisioned all necessary pr
 
 7. Click `Next` and `Submit` at the bottom of the page. The IoT Edge is now deployed and will start sending messages to your digial twin.
 
-> The &lt;device hardware Id&gt; in the route above is the one that you created in your Azure Digital twin. The `$upstream` is only used to check whther the `Simulated Temperature Sensor` is still sending messages.
+> For your convenience we've created an Iot Edge deployment template. You can create a .env file based on the .env.template file and then generate the deployment file. 
+
+> The &lt;device hardware Id&gt; in the route above is the one that you created in your Azure Digital twin. If you do'n't create the device it will be created for you abd will be attached as "unassociated" device to the root space. The `$upstream` is only used to check whether the `Simulated Temperature Sensor` is still sending messages.
 
 > The `Simulated Temperature Sensor` sends out 500 messages and then stops sending. If you want to restart sending messages, restart the module on the IoT Edge by executing the command `iotedge restart SimulatedTemperatureSensor` at a prompt.
 
