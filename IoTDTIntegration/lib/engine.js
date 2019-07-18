@@ -54,7 +54,7 @@ module.exports = async function (context, device, measurements, timestamp) {
         for(var measurement in measurements){
             // Get the value
             var sensorValue = {
-                SensorValue: (measurements[measurement]).toString()
+                SensorValue: measurements[measurement]
             };
 
             // Create the message
