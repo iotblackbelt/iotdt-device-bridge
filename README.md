@@ -12,7 +12,7 @@ To use the device bridge solution, you will need the following:
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgbbiotwesouth%2Fiotdt-device-bridge%2Fmaster%2Fazuredeploy.json)
 
-> The Azure Digital Twin Device Bridge can also be deployed as module on Azure IoT Edge. A step by step tutorial can be found on the [IoT Edge Module page](IOTEDGEMODULE.md)
+> The Azure Digital Twin Device Bridge can also be deployed as a module on Azure IoT Edge. A step by step tutorial can be found on the [IoT Edge Module page](IOTEDGEMODULE.md)
 
 ## Instructions (Azure Function)
 Take the following steps to deploy an Azure Function into your subscription and set up the device bridge.
@@ -20,10 +20,10 @@ Take the following steps to deploy an Azure Function into your subscription and 
 1. Create an Azure Digital Twin instance and Azure application registration as described above.
 
 2. Click the `Deploy to Azure` button above. This opens up a custom ARM template in the Azure Portal to deploy the Azure Function. Provide the details as saved in the Azure Application Registration steps, when deploying the template:
-- Client Id: &lt;Your application Id&gt;
-- Client Secret: &lt;Your client secret&gt;
-- Authority Host Url: https://login.microsoftonline.com/&lt;your tenant name&gt;.onmicrosoft.com/oauth2/token
-- Digital Twin API Url: https://&lt;your digital twin name&gt;.&lt;location&gt;.azuresmartspaces.net/
+- Client Id: `<Your application Id>`
+- Client Secret: `<Your client secret>`
+- Authority Host Url: `https://login.microsoftonline.com/<your tenant name>.onmicrosoft.com/oauth2/token`
+- Digital Twin API Url: `https://<your digital twin name>.<location>.azuresmartspaces.net/`
 
 ![ARM Deployment](assets/deployment.png "ARM Deployment")
 
