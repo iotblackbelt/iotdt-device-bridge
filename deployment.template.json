@@ -100,8 +100,8 @@
         "properties.desired": {
           "schemaVersion": "1.0",
           "routes": {
-            "TransformatorToBridge": "FROM /messages/modules/IOTDTTransformationModule/outputs/* INTO BrokeredEndpoint(\"/modules/IOTDTBridgeModule/inputs/iotdt\")",
-            "SimulatedToTransformator": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO BrokeredEndpoint(\"/modules/IOTDTTransformationModule/inputs/$DEVICE_HARDWARE_ID\")",
+            "TransformerToBridge": "FROM /messages/modules/IOTDTTransformationModule/outputs/* INTO BrokeredEndpoint(\"/modules/IOTDTBridgeModule/inputs/iotdt\")",
+            "SimulatedToTransformer": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO BrokeredEndpoint(\"/modules/IOTDTTransformationModule/inputs/$DEVICE_HARDWARE_ID\")",
             "upstream": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO $upstream"
         },
           "storeAndForwardConfiguration": {

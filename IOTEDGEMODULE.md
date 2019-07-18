@@ -89,8 +89,8 @@ Once you've built the modules as describe above and provisioned all necessary pr
     ```json
     {
         "routes": {
-            "TransformatorToBridge": "FROM /messages/modules/iotdttransformationmodule/outputs/* INTO BrokeredEndpoint(\"/modules/iotdtbridgemodule/inputs/iotc\")",
-            "SimulatedToTransformator": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO BrokeredEndpoint(\"/modules/iotdttransformationmodule/inputs/<device hardware Id>\")",
+            "TransformerToBridge": "FROM /messages/modules/iotdttransformationmodule/outputs/* INTO BrokeredEndpoint(\"/modules/iotdtbridgemodule/inputs/iotc\")",
+            "SimulatedToTransformer": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO BrokeredEndpoint(\"/modules/iotdttransformationmodule/inputs/<device hardware Id>\")",
             "upstream": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/* INTO $upstream"
         }
     }
