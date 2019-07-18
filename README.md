@@ -253,7 +253,7 @@ Function. You can check the integrity of the code being deployed by verifying th
 of the `iotdt-bridge-az-function.zip` file in the root of this repository matches the following:
 
 ```
-<TBD>
+f7274615b47af8ace2bb3de0d578e9d88de23abe32ada67055c461187654eadc
 ```
 
 # Contributing
