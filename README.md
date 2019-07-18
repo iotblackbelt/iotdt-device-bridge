@@ -264,7 +264,7 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 # Contributors
 
-Microsoft [IOT Central Device Bridge](https://github.com/Azure/iotc-device-bridge) Team 
-Eric van Uum - Microsoft EMEA IoT Technical Specialist
-Jesse van Leth - Microsoft Cloud Solution Architect
-Remco Ploed - Altius CTO Europe
+- Microsoft [IOT Central Device Bridge](https://github.com/Azure/iotc-device-bridge) Team 
+- Eric van Uum - Microsoft EMEA IoT Technical Specialist
+- Jesse van Leth - Microsoft Cloud Solution Architect
+- Remco Ploed - Altius CTO Europe
