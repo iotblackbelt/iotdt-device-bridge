@@ -61,7 +61,7 @@ An optional `timestamp` field can be included in the body, to specify the UTC da
 This field must be in ISO format (e.g., YYYY-MM-DDTHH:mm:ss.sssZ). If `timestamp` is not provided,
 the current date and time will be used.
 
-> NOTE: `deviceId` must be the hardware Id as specified in the Azure Digital Twin. The fields in `measurements` must be the sensor hardware Id as created in Azure Digital Twin, and values of the fields in `measurements` must be numbers or strings. Alignment between the sending platform and the Azure Digital Twin hardware Id naming needs to be taken into account, when provisioning the Azure Digital Twin.
+> NOTE: `deviceId` must be the hardware Id as specified in the Azure Digital Twin. The fields in `measurements` must be the sensor hardware Id as created in Azure Digital Twin, and values of the fields in `measurements` must be numbers or strings. `device hardware Id` and `sensor hardware Id` must be unique within the boundaries of an Azure Digital Twin instance. Alignment between the sending platform and the Azure Digital Twin hardware Id naming needs to be taken into account, when provisioning the Azure Digital Twin.
 
 ## What is being provisioned? (pricing)
 The custom template in this repository will provision the following Azure resources:
