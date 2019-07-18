@@ -100,7 +100,7 @@ Once you've built the modules as describe above and provisioned all necessary pr
 
 > For your convenience we've created an Iot Edge deployment template. You can create a .env file based on the .env.template file and then generate the deployment file. 
 
-> The &lt;device hardware Id&gt; in the route above is the one that you created in your Azure Digital twin. If you do'n't create the device it will be created for you abd will be attached as "unassociated" device to the root space. The `$upstream` is only used to check whether the `Simulated Temperature Sensor` is still sending messages.
+> The `<device hardware Id>` in the route above is the one that you created in your Azure Digital twin. If you haven't created the device it will be created for you and will be attached as "unassociated" device to the root space. The `$upstream` is only used to check whether the `Simulated Temperature Sensor` is still sending messages.
 
 > The `Simulated Temperature Sensor` sends out 500 messages and then stops sending. If you want to restart sending messages, restart the module on the IoT Edge by executing the command `iotedge restart SimulatedTemperatureSensor` at a prompt.
 
